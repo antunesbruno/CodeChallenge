@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UpcomingMovies.Arc.Helpers
+namespace UpcomingMovies.Arc.Models.Helpers
 {
     public class MessagingCenterAlert
     {

@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using FFImageLoading.Forms.Droid;
 
 namespace UpcomingMovies.Arc.Droid
 {
@@ -11,6 +12,9 @@ namespace UpcomingMovies.Arc.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+
+            //FFImageLoading init
+            CachedImageRenderer.Init(true);
 
             base.OnCreate(bundle);
 

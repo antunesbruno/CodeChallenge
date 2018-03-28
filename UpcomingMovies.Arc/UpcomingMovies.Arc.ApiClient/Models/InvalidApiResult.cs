@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UpcomingMovies.Arc.ApiClient
+namespace UpcomingMovies.Arc.ApiClient.Models
 {
     public class InvalidApiResult<T> : BaseApiResult<T>
     {

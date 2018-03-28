@@ -3,6 +3,7 @@ using Newtonsoft.Json.Converters;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using UpcomingMovies.Arc.ApiClient.Models;
 
 namespace UpcomingMovies.Arc.ApiClient
 {
@@ -26,8 +27,8 @@ namespace UpcomingMovies.Arc.ApiClient
             try
             {
                 var json = await GetAsync(apiRoute);
-                var data = JsonConvert.DeserializeObject<TModel>(json, GetConverter());
-                var result = new OkApiResult<TModel>(data);
+                var data = JsonConvert.DeserializeObject<BaseApiResult<TModel>>(json, GetConverter());
+                var result = new OkApiResult<TModel>(data.results);
 
                 callback?.Invoke(result);
 
@@ -41,7 +42,8 @@ namespace UpcomingMovies.Arc.ApiClient
 
         private async Task<string> GetAsync(string apiRoute)
         {
-            var url = _apiUrlBase + "/" + apiRoute;
+            //var url = _apiUrlBase + "/" + apiRoute;
+            var url = "https://api.themoviedb.org/3/movie/upcoming?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US&page=1";
 
             _restClient = _restClient ?? new HttpClient();
             _restClient.BaseAddress = new Uri(url);

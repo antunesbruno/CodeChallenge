@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
-using UpcomingMovies.Arc.Helpers;
 using UpcomingMovies.Arc.Models;
+using UpcomingMovies.Arc.Models.Helpers;
 using UpcomingMovies.Arc.Views;
 
 using Xamarin.Forms;

@@ -1,5 +1,5 @@
 ﻿using System;
-using UpcomingMovies.Arc.Helpers;
+using UpcomingMovies.Arc.Models.Helpers;
 
 namespace UpcomingMovies.Arc.Models
 {

@@ -1,5 +1,5 @@
-﻿using UpcomingMovies.Arc.Helpers;
-using UpcomingMovies.Arc.Models;
+﻿using UpcomingMovies.Arc.Models;
+using UpcomingMovies.Arc.Models.Helpers;
 using UpcomingMovies.Arc.Services;
 
 using Xamarin.Forms;

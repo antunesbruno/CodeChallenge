@@ -13,21 +13,18 @@ namespace UpcomingMovies.Arc.ApiClient
 
         }
 
-        public T Data { get; set; }
-
-        public string Id { get; set; }
-
-        public string Message { get; set; }
-
-        public object ModelState { get; set; }
-
-        public bool Success { get; set; }
-
-        public string Url { get; set; }
+        public T results { get; set; }
+        public int page { get; set; }
+        public int total_results { get; set; }
+        public object dates { get; set; }
+        public int total_pages { get; set; }
 
         public virtual object Minify()
         {
             return this;
         }
+
+        public bool Success { get; set; }
+        public string Message { get; set; }
     }
 }

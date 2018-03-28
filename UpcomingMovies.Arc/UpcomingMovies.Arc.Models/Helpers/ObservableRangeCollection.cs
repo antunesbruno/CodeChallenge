@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace UpcomingMovies.Arc.Helpers
+namespace UpcomingMovies.Arc.Models.Helpers
 {
     /// <summary> 
     /// Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed. 

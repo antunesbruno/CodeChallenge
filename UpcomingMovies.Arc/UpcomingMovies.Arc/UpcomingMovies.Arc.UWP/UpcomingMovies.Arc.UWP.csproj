@@ -134,6 +134,10 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\UpcomingMovies.Arc.Models\UpcomingMovies.Arc.Models.csproj">
+      <Project>{74066091-45c7-4114-93a1-c06b4884b019}</Project>
+      <Name>UpcomingMovies.Arc.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UpcomingMovies.Arc\UpcomingMovies.Arc.csproj">
       <Project>{4ca084a6-2d2c-4bcc-af82-bd0ccdfdb6d7}</Project>
       <Name>UpcomingMovies.Arc</Name>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace UpcomingMovies.Arc.Helpers
+namespace UpcomingMovies.Arc.Models.Helpers
 {
     /// <summary>
     /// Observable object with INotifyPropertyChanged implemented

@@ -4,9 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UpcomingMovies.Arc.ApiClient;
+using UpcomingMovies.Arc.ApiClient.Services;
 using UpcomingMovies.Arc.Base;
 using UpcomingMovies.Arc.Ioc;
+using UpcomingMovies.Arc.Models;
+using UpcomingMovies.Arc.Models.Interfaces;
+using UpcomingMovies.Arc.ViewModels;
+using UpcomingMovies.Arc.ViewModels.Interfaces;
 using UpcomingMovies.Arc.Views;
+using UpcomingMovies.Arc.Views.Interfaces;
+using Xamarin.Forms;
 
 namespace UpcomingMovies.Arc
 {
@@ -24,19 +31,36 @@ namespace UpcomingMovies.Arc
 
         public override void InitializeApplication()
         {
-            //var api = Resolver.Get<IApiClientHttp>();
-            //api.SetApiClientHttp("https://api.themoviedb.org/3/movie/upcoming?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US&page=1");
-            //var x = api.GetAsync<List<string>>("");
+            //config the client address
+            SetHttpClient();
 
             //TODO: create a splash screen
-            MainPage = new ItemsPage();
+            MainPage = (Page)Resolver.Get<IUpcomingMoviesListView>();
         }
 
         protected override List<IDependencyObject> CreateDependencies()
         {
+            //http client service
             Inject<IApiClientHttp, ApiClientHttp>(LifetimeType.Transient);
 
+            //view models
+            Inject<IUpcomingMoviesListViewModel, UpcomingMoviesListViewModel>(LifetimeType.Transient);
+
+            //views
+            Inject<IUpcomingMoviesListView, UpcomingMoviesListView>(LifetimeType.Transient);
+
+            //model
+            Inject<IUpcomingMovie, UpcomingMovie>(LifetimeType.Transient);
+
+            //services
+            Inject<IUpcomingMoviesService, UpcomingMoviesService>(LifetimeType.Transient);
+
             return dependencies;
+        }
+
+        private void SetHttpClient()
+        {            
+            Resolver.Get<IApiClientHttp>().SetApiClientHttp("https://api.themoviedb.org/3/movie/upcoming?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US&page=1");
         }
 
         #region Private Injection Methods

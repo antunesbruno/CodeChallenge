@@ -10,16 +10,14 @@ namespace UpcomingMovies.Arc.ApiClient
     {
         public OkApiResult()
         {
-            Success = false;
-            ModelState = null;
-            Id = null;
+            Success = false;            
         }
 
         public OkApiResult(T data)
             : this()
         {
             Success = true;
-            Data = data;
+            results = data;
         }
     }
 }
