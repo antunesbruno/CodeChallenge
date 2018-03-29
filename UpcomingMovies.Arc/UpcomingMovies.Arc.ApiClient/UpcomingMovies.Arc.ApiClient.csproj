@@ -36,6 +36,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ApiClientHttp.cs" />
+    <Compile Include="Enums\ApiRouteEnum.cs" />
+    <Compile Include="Enums\EndPointEnum.cs" />
     <Compile Include="Interfaces\IApiClient.cs" />
     <Compile Include="Models\ApiResult.cs" />
     <Compile Include="Models\BaseApiResult.cs" />
@@ -44,6 +46,8 @@
     <Compile Include="Models\InvalidApiResult.cs" />
     <Compile Include="Models\OkApiResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GenreService.cs" />
+    <Compile Include="Services\Interfaces\IGenreService.cs" />
     <Compile Include="Services\Interfaces\IUpcomingMoviesService.cs" />
     <Compile Include="Services\UpcomingMoviesService.cs" />
   </ItemGroup>

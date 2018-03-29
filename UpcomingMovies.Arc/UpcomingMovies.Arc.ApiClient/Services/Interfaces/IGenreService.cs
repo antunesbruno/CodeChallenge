@@ -7,9 +7,9 @@ using UpcomingMovies.Arc.Models;
 
 namespace UpcomingMovies.Arc.ApiClient.Services
 {
-    public interface IUpcomingMoviesService
+    public interface IGenreService
     {
-        Task<List<UpcomingMovie>> GetAllUpComingMovies();
-        Task<List<UpcomingMovie>> GetPagedUpcomingWithGenre();
+        Task<List<Genres>> GetAllGenre(Action callback = null);
+        List<Genres> GenreCached { get; set; }
     }
 }

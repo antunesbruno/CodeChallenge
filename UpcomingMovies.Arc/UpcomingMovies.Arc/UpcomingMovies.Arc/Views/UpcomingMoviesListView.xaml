@@ -4,6 +4,7 @@
              x:Class="UpcomingMovies.Arc.Views.UpcomingMoviesListView"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:local="clr-namespace:UpcomingMovies.Arc"
              Title="{Binding Title}"
              x:Name="BrowseItemsPage">
     <ContentPage.Content>
@@ -11,79 +12,27 @@
             <ListView ItemsSource="{Binding Items}" CachingStrategy="RetainElement" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HasUnevenRows="false" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell StyleId="disclosure">
-                            <!-- Commenting out the ViewCell.ContextActions until this fix is released: https://github.com/xamarin/Xamarin.Forms/pull/338 -->
-                            <!--<ViewCell.ContextActions>
-									<MenuItem Text="Email" Command="{Binding Source={x:Reference acquaintanceListPage}, Path=BindingContext.EmailCommand}" CommandParameter="{Binding Id}" />
-									<MenuItem Text="Text" Command="{Binding Source={x:Reference acquaintanceListPage}, Path=BindingContext.MessageNumberCommand}" CommandParameter="{Binding Id}" />
-									<MenuItem Text="Call" Command="{Binding Source={x:Reference acquaintanceListPage}, Path=BindingContext.DialNumberCommand}" CommandParameter="{Binding Id}" />
-								</ViewCell.ContextActions>-->
-                            <!--<AbsoluteLayout>-->
-                                <StackLayout Orientation="Horizontal" Spacing="0" AbsoluteLayout.LayoutFlags="XProportional" AbsoluteLayout.LayoutBounds="0,0,AutoSize,AutoSize" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                                    <ContentView Margin="3">
-                                    <ffimageloading:CachedImage HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" DownsampleToViewSize="false" Source="{Binding TestImageSource}" LoadingPlaceholder="placeholderProfileImage.png">
+                        <ViewCell>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <ContentView Margin="3" >
+                                    <ffimageloading:CachedImage  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" DownsampleToViewSize="false" Source="{Binding ImageSourceBackDrop}" LoadingPlaceholder="placeholderProfileImage.png">
                                             <!--<ffimageloading:CachedImage.Transformations>
                                                 <fftransformations:RoundedTransformation />
                                             </ffimageloading:CachedImage.Transformations>-->
                                         </ffimageloading:CachedImage>
                                     </ContentView>
-                                    <ContentView Padding="10,0,0,0">
-                                        <StackLayout Spacing="0">
-                                            <Label Text="{Binding DisplayLastNameFirst}" HeightRequest="20" VerticalTextAlignment="End" LineBreakMode="TailTruncation" />
-                                            <Label Text="{Binding Company}" HeightRequest="20" VerticalTextAlignment="End" FontSize="Micro" LineBreakMode="TailTruncation" />
-                                            <Label Text="{Binding JobTitle}" HeightRequest="20" VerticalTextAlignment="Start" FontSize="Micro" LineBreakMode="TailTruncation" TextColor="Silver" />
+                                <ContentView Padding="5,5,5,5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                        <StackLayout Spacing="0" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                            <Label Text="{Binding Title}" VerticalTextAlignment="End" LineBreakMode="TailTruncation" FontSize="Micro" FontAttributes="Bold" />                                            
+                                            <Label Text="{Binding GenresByComma}" VerticalTextAlignment="End" FontSize="Micro" LineBreakMode="TailTruncation" TextColor="Silver" />
+                                            <Label Text="{Binding Release_Date}" VerticalTextAlignment="Start" FontSize="Micro" LineBreakMode="TailTruncation" TextColor="Silver" />
                                         </StackLayout>
-                                    </ContentView>
+                                </ContentView>
                                 </StackLayout>
-                            <!--</AbsoluteLayout>-->
                         </ViewCell>
                     </DataTemplate>
-                </ListView.ItemTemplate>
+                </ListView.ItemTemplate>           
             </ListView>
-
-            <!--<ListView x:Name="ItemsListView"
-				ItemsSource="{Binding Items}"
-                VerticalOptions="FillAndExpand"
-                HasUnevenRows="true"
-                RefreshCommand="{Binding LoadItemsCommand}"
-                IsPullToRefreshEnabled="true"
-                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                CachingStrategy="RecycleElement">
-                <DataTemplate>
-                    <ViewCell StyleId="disclosure" Height="60">
-                        <ffimageloading:CachedImage HorizontalOptions="Center" VerticalOptions="Center"
-                                                    WidthRequest="300" HeightRequest="300"
-                                                    DownsampleToViewSize="true"
-                                                    Source = "http://loremflickr.com/600/600/nature?filename=simple.jpg">
-                            
-                        </ffimageloading:CachedImage>-->
-
-                        <!--<ViewCell.ContextActions>
-                            <MenuItem Text="Email" Command="{Binding Source={x:Reference acquaintanceListPage}, Path=BindingContext.EmailCommand}" CommandParameter="{Binding Id}" />
-                            <MenuItem Text="Text" Command="{Binding Source={x:Reference acquaintanceListPage}, Path=BindingContext.MessageNumberCommand}" CommandParameter="{Binding Id}" />
-                            <MenuItem Text="Call" Command="{Binding Source={x:Reference acquaintanceListPage}, Path=BindingContext.DialNumberCommand}" CommandParameter="{Binding Id}" />
-                        </ViewCell.ContextActions>
-                        <ContentView Padding="10,0">
-                            <StackLayout Orientation="Horizontal" Spacing="0">
-                                <ContentView Margin="3" WidthRequest="54">
-                                    <ffimageloading:CachedImage HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="50" HeightRequest="50" DownsampleToViewSize="true" Source="{Binding SmallPhotoUrl}" LoadingPlaceholder="placeholderProfileImage.png">
-                                        <ffimageloading:CachedImage.Transformations>
-                                            <fftransformations:CircleTransformation />
-                                        </ffimageloading:CachedImage.Transformations>
-                                    </ffimageloading:CachedImage>
-                                </ContentView>
-                                <ContentView Padding="10,0,0,0">
-                                    <StackLayout Spacing="0">
-                                        <Label Text="{Binding DisplayLastNameFirst}" HeightRequest="20" VerticalTextAlignment="End" LineBreakMode="TailTruncation" />
-                                        <Label Text="{Binding Company}" HeightRequest="20" VerticalTextAlignment="End" FontSize="Micro" LineBreakMode="TailTruncation" />
-                                        <Label Text="{Binding JobTitle}" HeightRequest="20" VerticalTextAlignment="Start" FontSize="Micro" LineBreakMode="TailTruncation" TextColor="Silver" />
-                                    </StackLayout>
-                                </ContentView>
-                            </StackLayout>
-                        </ContentView>-->
-                    <!--</ViewCell>
-                </DataTemplate>
-            </ListView>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

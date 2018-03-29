@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace UpcomingMovies.Arc.Models.Interfaces
 {
@@ -17,10 +18,13 @@ namespace UpcomingMovies.Arc.Models.Interfaces
         string Poster_path { get; set; }
         string Original_Language { get; set; }
         string Original_Title { get; set; }
-        object Genre_Ids { get; set; }
+        int[] Genre_Ids { get; set; }
         string Backdrop_path { get; set; }
         bool Adult { get; set; }
         string Overview { get; set; }
         string Release_Date { get; set; }
+        List<Genres> Genre { get; set; }
+        ImageSource ImageSourceBackDrop { get; }
+        string GenresByComma { get; }
     }
 }

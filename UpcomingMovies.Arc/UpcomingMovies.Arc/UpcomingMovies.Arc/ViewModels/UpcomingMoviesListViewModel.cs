@@ -28,13 +28,33 @@ namespace UpcomingMovies.Arc.ViewModels
         }
 
         public UpcomingMoviesListViewModel()
-        {            
+        {
         }
 
         public async Task LoadListItems()
         {
-            var apiResult = await Resolver.Get<IUpcomingMoviesService>().GetAllUpComingMovies();
-            Items = new ObservableRangeCollection<UpcomingMovie>(apiResult.results);
+            //load the genres
+            await LoadGenres();           
         }
+
+        /// <summary>
+        /// Load All Genres
+        /// </summary>
+        /// <returns></returns>
+        private async Task LoadGenres()
+        {
+            //genres
+            await Resolver.Get<IGenreService>().GetAllGenre(ExecuteLoadListCallBack);
+        }
+
+        /// <summary>
+        /// Execute callback after call genres
+        /// </summary>
+        private async void ExecuteLoadListCallBack()
+        {
+            var apiResult = await Resolver.Get<IUpcomingMoviesService>().GetPagedUpcomingWithGenre();
+            Items = new ObservableRangeCollection<UpcomingMovie>(apiResult);
+        }
+
     }
 }

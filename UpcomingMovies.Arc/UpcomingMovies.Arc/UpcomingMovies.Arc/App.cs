@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UpcomingMovies.Arc.ApiClient;
+using UpcomingMovies.Arc.ApiClient.Enums;
 using UpcomingMovies.Arc.ApiClient.Services;
 using UpcomingMovies.Arc.Base;
 using UpcomingMovies.Arc.Ioc;
@@ -25,15 +26,13 @@ namespace UpcomingMovies.Arc
 
         #endregion
 
-        public App() : base()
-        {            
+        public App() 
+            : base()
+        {         
         }
 
         public override void InitializeApplication()
         {
-            //config the client address
-            SetHttpClient();
-
             //TODO: create a splash screen
             MainPage = (Page)Resolver.Get<IUpcomingMoviesListView>();
         }
@@ -51,17 +50,15 @@ namespace UpcomingMovies.Arc
 
             //model
             Inject<IUpcomingMovie, UpcomingMovie>(LifetimeType.Transient);
+            Inject<IGenres, Genres>(LifetimeType.Transient);
 
             //services
             Inject<IUpcomingMoviesService, UpcomingMoviesService>(LifetimeType.Transient);
+            Inject<IGenreService, GenreService>(LifetimeType.ContainerController);
 
             return dependencies;
-        }
-
-        private void SetHttpClient()
-        {            
-            Resolver.Get<IApiClientHttp>().SetApiClientHttp("https://api.themoviedb.org/3/movie/upcoming?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US&page=1");
-        }
+        }  
+  
 
         #region Private Injection Methods
 

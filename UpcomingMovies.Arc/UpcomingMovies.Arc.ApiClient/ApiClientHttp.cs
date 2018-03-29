@@ -3,6 +3,7 @@ using Newtonsoft.Json.Converters;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using UpcomingMovies.Arc.ApiClient.Enums;
 using UpcomingMovies.Arc.ApiClient.Models;
 
 namespace UpcomingMovies.Arc.ApiClient
@@ -10,17 +11,7 @@ namespace UpcomingMovies.Arc.ApiClient
     public class ApiClientHttp : IApiClientHttp
     {
         private HttpClient _restClient;
-        private string _apiUrlBase;
-
-        public void SetApiClientHttp(string apiUrlBase)
-        {
-            if (string.IsNullOrEmpty(apiUrlBase))
-            {
-                throw new ArgumentNullException("apiUrlBase", "Uma url base de API deve ser informada");
-            }
-
-            _apiUrlBase = apiUrlBase;
-        }
+        private string _apiUrlBase = EndPointEnum.BaseAddress;
 
         public async Task<BaseApiResult<TModel>> GetAsync<TModel>(string apiRoute, Action<BaseApiResult<TModel>> callback = null)
         {
@@ -40,10 +31,27 @@ namespace UpcomingMovies.Arc.ApiClient
             }
         }
 
+        public async Task<BaseApiResult<TModel>> GetAsyncWithoutBaseApi<TModel>(string apiRoute, Action<BaseApiResult<TModel>> callback = null)
+        {
+            try
+            {
+                var json = await GetAsync(apiRoute);
+                var data = JsonConvert.DeserializeObject<TModel>(json, GetConverter());
+                var result = new OkApiResult<TModel>(data);
+
+                callback?.Invoke(result);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return new InvalidApiResult<TModel>(ex);
+            }
+        }
+
         private async Task<string> GetAsync(string apiRoute)
         {
-            //var url = _apiUrlBase + "/" + apiRoute;
-            var url = "https://api.themoviedb.org/3/movie/upcoming?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US&page=1";
+            var url = _apiUrlBase + apiRoute;              
 
             _restClient = _restClient ?? new HttpClient();
             _restClient.BaseAddress = new Uri(url);

@@ -20,17 +20,22 @@ namespace UpcomingMovies.Arc.Models
         public string Poster_path { get; set; }
         public string Original_Language { get; set; }
         public string Original_Title { get; set; }
-        public object Genre_Ids { get; set; }
+        public int[] Genre_Ids { get; set; }
         public string Backdrop_path { get; set; }
         public bool Adult { get; set; }
         public string Overview { get; set; }
         public string Release_Date { get; set; }
-
-        private ImageSource testImageSource;
-        public ImageSource TestImageSource
+        public List<Genres> Genre { get; set; }
+        
+        public ImageSource ImageSourceBackDrop
         {
             get { return ImageSource.FromUri(new Uri("https://image.tmdb.org/t/p/w500" + Backdrop_path)); }
-
         }
+
+        public string GenresByComma
+        {
+            get { return string.Join(" | ", Genre?.Select(s => s.Name).ToList()) ?? string.Empty; }
+        }
+        
     }
 }
