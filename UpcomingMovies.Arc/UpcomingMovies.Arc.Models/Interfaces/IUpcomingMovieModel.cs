@@ -25,6 +25,7 @@ namespace UpcomingMovies.Arc.Models.Interfaces
         string Release_Date { get; set; }
         List<Genres> Genre { get; set; }
         ImageSource ImageSourceBackDrop { get; }
+        ImageSource ImageSourcePosterPath { get; }
         string GenresByComma { get; }
     }
 }

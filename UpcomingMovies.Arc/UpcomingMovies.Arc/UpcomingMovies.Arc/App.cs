@@ -34,7 +34,7 @@ namespace UpcomingMovies.Arc
         public override void InitializeApplication()
         {
             //TODO: create a splash screen
-            MainPage = (Page)Resolver.Get<IUpcomingMoviesListView>();
+            MainPage = new NavigationPage((Page)Resolver.Get<IUpcomingMoviesListView>());
         }
 
         protected override List<IDependencyObject> CreateDependencies()
@@ -44,9 +44,12 @@ namespace UpcomingMovies.Arc
 
             //view models
             Inject<IUpcomingMoviesListViewModel, UpcomingMoviesListViewModel>(LifetimeType.Transient);
+            Inject<IUpcomingMovieDetailViewModel, UpcomingMovieDetailViewModel>(LifetimeType.Transient);
 
             //views
             Inject<IUpcomingMoviesListView, UpcomingMoviesListView>(LifetimeType.Transient);
+            Inject<IUpcomingMovieDetailView, UpcomingMovieDetailView>(LifetimeType.Transient);
+            
 
             //model
             Inject<IUpcomingMovie, UpcomingMovie>(LifetimeType.Transient);

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="UpcomingMovies.Arc.Views.UpcomingMovieDetailView"
+             Title="{Binding TitleView}" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
+             NavigationPage.BackButtonTitle="{Binding BackButtonTitle}">
+    <ContentPage.Resources>>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>        
+        <ToolbarItem Text="ArchTouch" Icon="icon.png"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical">
+            <AbsoluteLayout>
+                <StackLayout Spacing="0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                    <ContentView Padding="10">
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <AbsoluteLayout>
+                                <ffimageloading:CachedImage 
+                                    HorizontalOptions="CenterAndExpand" 
+                                    VerticalOptions="CenterAndExpand" 
+                                    DownsampleToViewSize="false" 
+                                    Source="{Binding SelectedItem.ImageSourcePosterPath}" 
+                                    LoadingPlaceholder="placeholderProfileImage.png">>
+                                </ffimageloading:CachedImage>
+                            </AbsoluteLayout>
+                            <StackLayout Spacing="10">
+                                <ContentView>
+                                    <StackLayout Spacing="0">
+                                        <Label Text="{Binding SelectedItem.Title}" FontSize="Large" FontAttributes="Bold" />
+                                        <Label Text="{Binding SelectedItem.GenresByComma}" FontSize="Small" TextColor="Silver" />
+                                    </StackLayout>
+                                </ContentView>
+                                <!-- original title -->
+                                <ContentView>
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <Image Source="ic_local_movies_black_48dp.png" Aspect="AspectFit" HeightRequest="20" WidthRequest="20" />
+                                        <StackLayout Spacing="0">
+                                            <Label Text="{Binding SelectedItem.Original_Title}" LineBreakMode="WordWrap" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ContentView>
+                                <!-- release date -->
+                                <ContentView>
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <Image Source="ic_date_range_black_48dp.png" Aspect="AspectFit" HeightRequest="20" WidthRequest="20" />
+                                        <StackLayout Spacing="0">
+                                            <Label Text="{Binding SelectedItem.Release_Date}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ContentView>
+                                <!-- popularity -->
+                                <ContentView>
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <Image Source="ic_face_black_48dp.png" Aspect="AspectFit" HeightRequest="20" WidthRequest="20" />
+                                        <StackLayout Spacing="0">
+                                            <Label Text="{Binding SelectedItem.Popularity}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ContentView>
+                            </StackLayout>
+                        </StackLayout>
+                    </ContentView>
+                    <!-- movie overview -->
+                    <ContentView HeightRequest="1" BackgroundColor="Silver" />
+                    <AbsoluteLayout VerticalOptions="FillAndExpand">
+                        <ContentView Padding="40" VerticalOptions="Center" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
+                            <StackLayout Spacing="20">
+                                <Label Text="{Binding SelectedItem.Overview}" VerticalTextAlignment="Center" />
+                            </StackLayout>
+                        </ContentView>
+                    </AbsoluteLayout>
+                </StackLayout>
+            </AbsoluteLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

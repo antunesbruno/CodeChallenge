@@ -29,7 +29,12 @@ namespace UpcomingMovies.Arc.Models
         
         public ImageSource ImageSourceBackDrop
         {
-            get { return ImageSource.FromUri(new Uri("https://image.tmdb.org/t/p/w500" + Backdrop_path)); }
+            get { return Backdrop_path != null ? ImageSource.FromUri(new Uri("https://image.tmdb.org/t/p/w500" + Backdrop_path)) : ImageSourcePosterPath; }
+        }
+
+        public ImageSource ImageSourcePosterPath
+        {
+            get { return ImageSource.FromUri(new Uri("https://image.tmdb.org/t/p/w500" + Poster_path)); }
         }
 
         public string GenresByComma

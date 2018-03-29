@@ -7,29 +7,36 @@ using Xamarin.Forms;
 namespace UpcomingMovies.Arc.ViewModels
 {
     public class BaseViewModel : ObservableObject
-    {
-        /// <summary>
-        /// Get the azure service instance
-        /// </summary>
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+    {        
+        public virtual string BackButtonTitle { get; set; } = "Back";
 
-        bool isBusy = false;
-        public bool IsBusy
+        bool isLoading = false;
+        public bool IsLoading
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            get { return isLoading; }
+            set { SetProperty(ref isLoading, value); }
         }
         /// <summary>
         /// Private backing field to hold the title
         /// </summary>
-        string title = string.Empty;
+        string titleView = string.Empty;
         /// <summary>
         /// Public property to set and get the title of the item
         /// </summary>
-        public string Title
+        public string TitleView
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get { return titleView; }
+            set { SetProperty(ref titleView, value); }
+        }
+
+        public void ShowIndicator()
+        {
+            IsLoading = true;
+        }
+
+        public void HideIndicator()
+        {
+            IsLoading = false;
         }
     }
 }

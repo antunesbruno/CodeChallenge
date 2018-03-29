@@ -90,7 +90,12 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Assets\icon.png" />
+    <Content Include="Assets\ic_date_range_black_48dp.png" />
+    <Content Include="Assets\ic_face_black_48dp.png" />
+    <Content Include="Assets\ic_local_movies_black_48dp.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\splashScreen.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />

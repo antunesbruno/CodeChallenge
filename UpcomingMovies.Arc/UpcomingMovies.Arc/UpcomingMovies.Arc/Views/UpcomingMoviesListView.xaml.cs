@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using UpcomingMovies.Arc.Ioc;
+using UpcomingMovies.Arc.Models.Interfaces;
 using UpcomingMovies.Arc.ViewModels.Interfaces;
 using UpcomingMovies.Arc.Views.Interfaces;
 using Xamarin.Forms;
@@ -18,23 +19,34 @@ namespace UpcomingMovies.Arc.Views
         {
             InitializeComponent();
             this.BindingContext = Resolver.Get<IUpcomingMoviesListViewModel>();
-        }
-
-        async void Handle_ItemTapped(object sender, SelectedItemChangedEventArgs e)
-        {
-            if (e.SelectedItem == null)
-                return;
-
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
-        }
+        }       
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
             await (this.BindingContext as IUpcomingMoviesListViewModel).LoadListItems();
+        }
+
+        private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            //if null return to list
+            if (e.Item == null)
+                return;
+
+            //declare view
+            var upComingMovieDetailView = Resolver.Get<IUpcomingMovieDetailView>();
+            upComingMovieDetailView.SelectedItem = (IUpcomingMovie)e.Item;
+
+            //push async to detail
+            await Navigation.PushAsync((Page)upComingMovieDetailView);
+
+            // prevents the list from displaying the navigated item as selected when navigating back to the list
+            ((ListView)sender).SelectedItem = null;
+        }
+
+        private async void ListView_ItemAppearing(object sender, ItemVisibilityEventArgs e)
+        {
+            await (this.BindingContext as IUpcomingMoviesListViewModel).LoadLazyList((IUpcomingMovie)e.Item);         
         }
     }
 }

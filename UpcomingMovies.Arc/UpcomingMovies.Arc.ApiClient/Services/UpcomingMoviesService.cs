@@ -11,18 +11,29 @@ namespace UpcomingMovies.Arc.ApiClient.Services
 {
     public class UpcomingMoviesService : IUpcomingMoviesService
     {
-        private string _address = string.Format(ApiRouteEnum.UpcomingMovie, EndPointEnum.APIKey, "en-us", 1);
-
-        public async Task<List<UpcomingMovie>> GetAllUpComingMovies()
+        /// <summary>
+        /// Get all upcoming movies by page (this is a feature of the API)
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public async Task<List<UpcomingMovie>> GetAllUpComingMovies(int page)
         {
-            //get the address
+            //configura address
+            var _address = string.Format(ApiRouteEnum.UpcomingMovie, EndPointEnum.APIKey, "en-us", page);
+
+            //get data
             var upcomingResult = await Resolver.Get<IApiClientHttp>().GetAsync<List<UpcomingMovie>>(_address);
             return upcomingResult.results ?? new List<UpcomingMovie>();
         }
 
-        public async Task<List<UpcomingMovie>> GetPagedUpcomingWithGenre()
+        /// <summary>
+        /// Get the paged upcoming and set the genres in the list
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public async Task<List<UpcomingMovie>> GetPagedUpcomingWithGenre(int page)
         {
-            var listUpcoming = await this.GetAllUpComingMovies();
+            var listUpcoming = await this.GetAllUpComingMovies(page);
 
             if (listUpcoming != null)
             {
@@ -38,7 +49,7 @@ namespace UpcomingMovies.Arc.ApiClient.Services
                         var genreIds = string.Join(",", item.Genre_Ids.ToList());
                         item.Genre = genreList.Where(g => genreIds.Contains(g.Id.ToString())).ToList();
                     }
-                }            
+                }
             }
 
             return listUpcoming;
