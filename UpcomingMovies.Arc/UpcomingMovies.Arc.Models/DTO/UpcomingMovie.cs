@@ -29,12 +29,12 @@ namespace UpcomingMovies.Arc.Models
         
         public ImageSource ImageSourceBackDrop
         {
-            get { return Backdrop_path != null ? ImageSource.FromUri(new Uri("https://image.tmdb.org/t/p/w500" + Backdrop_path)) : ImageSourcePosterPath; }
+            get { return Backdrop_path != null ? ImageSource.FromUri(new Uri("https://image.tmdb.org/t/p/w500" + Backdrop_path)) : ImageSource.FromFile("nopicturetoshow.jpg"); }
         }
 
         public ImageSource ImageSourcePosterPath
         {
-            get { return ImageSource.FromUri(new Uri("https://image.tmdb.org/t/p/w500" + Poster_path)); }
+            get { return Poster_path != null ? ImageSource.FromUri(new Uri("https://image.tmdb.org/t/p/w500" + Poster_path)) : ImageSource.FromFile("splashScreen.png"); }
         }
 
         public string GenresByComma

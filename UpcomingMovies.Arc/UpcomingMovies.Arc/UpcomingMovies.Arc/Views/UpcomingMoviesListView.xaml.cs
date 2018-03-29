@@ -44,9 +44,24 @@ namespace UpcomingMovies.Arc.Views
             ((ListView)sender).SelectedItem = null;
         }
 
+        /// <summary>
+        /// Execute when the item of listview apearing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ListView_ItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
             await (this.BindingContext as IUpcomingMoviesListViewModel).LoadLazyList((IUpcomingMovie)e.Item);         
+        }
+
+        /// <summary>
+        /// Execute the search of movies by name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void SearchBarMovie_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            await (this.BindingContext as IUpcomingMoviesListViewModel).SearchMovieByFilter(e.NewTextValue);
         }
     }
 }

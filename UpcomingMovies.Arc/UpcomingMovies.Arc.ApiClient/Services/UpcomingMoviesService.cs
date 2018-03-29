@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using UpcomingMovies.Arc.ApiClient.Enums;
@@ -53,6 +54,21 @@ namespace UpcomingMovies.Arc.ApiClient.Services
             }
 
             return listUpcoming;
+        }
+
+        /// <summary>
+        /// Get all upcoming movies by page (this is a feature of the API)
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public async Task<List<UpcomingMovie>> SearchMoviesByTerm(string term)
+        {
+            //configura address
+            var _address = string.Format(ApiRouteEnum.SearchMovie, EndPointEnum.APIKey, "en-us", WebUtility.UrlEncode(term));
+
+            //get data
+            var upcomingResult = await Resolver.Get<IApiClientHttp>().GetAsync<List<UpcomingMovie>>(_address);
+            return upcomingResult.results ?? new List<UpcomingMovie>();
         }
     }
 }

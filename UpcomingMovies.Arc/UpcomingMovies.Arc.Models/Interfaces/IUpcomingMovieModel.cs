@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace UpcomingMovies.Arc.Models.Interfaces
 {
-    public interface IUpcomingMovie
+    public interface IUpcomingMovie : IModel
     {
         int Vote_Count { get; set; }
         int Id { get; set; }

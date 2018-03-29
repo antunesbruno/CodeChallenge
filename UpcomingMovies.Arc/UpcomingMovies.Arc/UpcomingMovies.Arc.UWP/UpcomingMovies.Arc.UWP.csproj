@@ -95,6 +95,7 @@
     <Content Include="Assets\ic_face_black_48dp.png" />
     <Content Include="Assets\ic_local_movies_black_48dp.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\nopicturetoshow.jpg" />
     <Content Include="Assets\splashScreen.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />

@@ -41,6 +41,7 @@
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Helpers\ObservableRangeCollection.cs" />
     <Compile Include="Interfaces\IGenre.cs" />
+    <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IUpcomingMovieModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

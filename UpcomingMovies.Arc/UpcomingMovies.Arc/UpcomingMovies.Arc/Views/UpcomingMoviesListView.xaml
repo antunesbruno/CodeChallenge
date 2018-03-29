@@ -10,6 +10,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
+            <SearchBar x:Name="SearchBarMovie" TextChanged="SearchBarMovie_TextChanged" />            
             <ListView ItemsSource="{Binding Items}" CachingStrategy="RetainElement" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HasUnevenRows="true" IsPullToRefreshEnabled="false" 
                       ItemTapped="ListView_ItemTapped" 
                       ItemAppearing="ListView_ItemAppearing"

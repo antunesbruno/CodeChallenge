@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace UpcomingMovies.Arc.Models.Interfaces
 {
-    public interface IGenres : IModel
+    public interface IModel
     {
-        int Id { get; set; }
-        string Name { get; set; }
     }
 }

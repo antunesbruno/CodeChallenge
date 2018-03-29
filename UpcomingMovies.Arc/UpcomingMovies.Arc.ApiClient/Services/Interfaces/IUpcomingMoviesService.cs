@@ -11,5 +11,6 @@ namespace UpcomingMovies.Arc.ApiClient.Services
     {
         Task<List<UpcomingMovie>> GetAllUpComingMovies(int page);
         Task<List<UpcomingMovie>> GetPagedUpcomingWithGenre(int page);
+        Task<List<UpcomingMovie>> SearchMoviesByTerm(string term);
     }
 }

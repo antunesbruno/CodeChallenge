@@ -1,25 +1,29 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using UpcomingMovies.Arc.ApiClient.Services;
 using UpcomingMovies.Arc.Ioc;
 using UpcomingMovies.Arc.Models;
 using UpcomingMovies.Arc.Models.Helpers;
 using UpcomingMovies.Arc.Models.Interfaces;
 using UpcomingMovies.Arc.ViewModels.Interfaces;
+using System.Linq;
+using System.Collections.Generic;
+using UpcomingMovies.Arc.Views.Interfaces;
 
 namespace UpcomingMovies.Arc.ViewModels
 {
-    public class UpcomingMoviesListViewModel : BaseViewModel, IUpcomingMoviesListViewModel
+    public class UpcomingMoviesListViewModel : BaseViewModel<IUpcomingMovie>, IUpcomingMoviesListViewModel
     {
         #region Fields        
 
-        private int _pageItem = 1;
-        private ObservableRangeCollection<UpcomingMovie> _items;
+        private int _pageItem = 1;        
+        private ObservableRangeCollection<UpcomingMovie> _itemsBackup;
 
         #endregion
 
         #region Properties
-
-        public ObservableRangeCollection<UpcomingMovie> Items
+        private ObservableRangeCollection<IUpcomingMovie> _items;
+        public override ObservableRangeCollection<IUpcomingMovie> Items
         {
             get { return _items; }
             set
@@ -49,7 +53,7 @@ namespace UpcomingMovies.Arc.ViewModels
         {
             //instance the list
             if (Items == null)
-                Items = new ObservableRangeCollection<UpcomingMovie>();
+                Items = new ObservableRangeCollection<IUpcomingMovie>();
 
             //show indicator
             ShowIndicator();
@@ -82,9 +86,11 @@ namespace UpcomingMovies.Arc.ViewModels
             }
         }
 
+       
+
         #endregion
 
-        #region Private Methods        
+        #region Private Methods              
 
         /// <summary>
         /// Load All Genres
@@ -114,7 +120,7 @@ namespace UpcomingMovies.Arc.ViewModels
 
             //hide indicator
             HideIndicator();
-        }
+        }       
 
         #endregion
 

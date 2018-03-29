@@ -16,6 +16,12 @@ namespace UpcomingMovies.Arc.ApiClient.Enums
         /// <summary>
         /// Upcoming - Parameters ({0} - Key / {1} - language / {2} - page)
         /// </summary>
-        public const string UpcomingMovie = "movie/upcoming?api_key={0}&language={1}&page={2}";       
+        public const string UpcomingMovie = "movie/upcoming?api_key={0}&language={1}&page={2}";
+
+        /// <summary>
+        /// Search Movies - Parameters ({0} - Key / {1} - language / {2} - query)
+        /// </summary>
+        public const string SearchMovie = "/search/movie?api_key={0}&language={1}&query={2}";       
+        
     }
 }

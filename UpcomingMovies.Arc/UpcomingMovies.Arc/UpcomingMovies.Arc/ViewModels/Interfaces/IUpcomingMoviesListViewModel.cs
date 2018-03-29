@@ -11,8 +11,9 @@ namespace UpcomingMovies.Arc.ViewModels.Interfaces
 {
     public interface IUpcomingMoviesListViewModel
     {
-        ObservableRangeCollection<UpcomingMovie> Items { get; set; }
+        ObservableRangeCollection<IUpcomingMovie> Items { get; set; }
         Task LoadListItems();
         Task LoadLazyList(IUpcomingMovie item);
+        Task SearchMovieByFilter(string term);
     }
 }
