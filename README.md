@@ -32,21 +32,21 @@ This project was writed like a code challenge to a hire process and has basic fu
 
 * Newtonsoft.Json (11.0.2)
 
-** Used to serialize and deserialize the informations of consumed API **
+**Used to serialize and deserialize the informations of consumed API**
 
 * Unity (5.8.1)
 
-** Used to resolve the dependencies of projects **
+**Used to resolve the dependencies of projects**
 
 * Xamarin.FFImageLoading (2.3.6)
 * Xamarin.FFImageLoading.Forms (2.3.6)
 * Xamarin.FFImageLoading.Transformations (2.3.6)
 
-** Used in listview to show the image with rounded corners and to cache the images avoiding waste time to load when scroll the list.**
+**Used in listview to show the image with rounded corners and to cache the images avoiding waste time to load when scroll the list.**
 
 * Xamarin.Forms (2.4.0.280)
 
-** Used to construct the application using Xamarin platform.**
+**Used to construct the application using Xamarin platform**
 
 
 
