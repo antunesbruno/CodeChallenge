@@ -11,7 +11,9 @@ This project was writed like a code challenge to a hire process and has basic fu
 
 :warning: Is some cases, the photo movie wasn´t at the API, so we put a default photo with the logo of our project to maintain the behavior default of the list.
 
-#### Used Technologies
+## Technologies / Libraries
+
+#### VS Config
 
 * Microsoft Visual Studio 2015 (Version 14.0.25431.01 Update 3)
 * Microsoft .NET Framework (Version 4.7.02556)
@@ -28,7 +30,7 @@ This project was writed like a code challenge to a hire process and has basic fu
 
 :warning: There are in the GIT the three platforms (Android, IOS and UWP) but consider use only (Android) because the version of IOS was incomplete and the version of UWP has been a unfriendly layout.
 
-#### Third Party Libraries
+#### Third Party Libraries (added by Nuget)
 
 * Newtonsoft.Json (11.0.2)
 
