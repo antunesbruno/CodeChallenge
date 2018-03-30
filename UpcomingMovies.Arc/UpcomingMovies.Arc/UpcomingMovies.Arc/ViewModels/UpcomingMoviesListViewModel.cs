@@ -15,6 +15,7 @@ namespace UpcomingMovies.Arc.ViewModels
 
         private int _pageItem = 1;        
         private ObservableRangeCollection<IUpcomingMovie> _itemsBackup;
+        private bool _isLoading = false;
 
         #endregion
 
@@ -65,18 +66,23 @@ namespace UpcomingMovies.Arc.ViewModels
         /// <returns></returns>
         public async Task LoadListItems()
         {
-            //instance the list
-            if (Items == null)
-                Items = new ObservableRangeCollection<IUpcomingMovie>();
+            if (string.IsNullOrEmpty(SearchText))
+            {
 
-            //show indicator
-            ShowIndicator();
 
-            //load the genres
-            await LoadGenres();
+                //instance the list
+                if (Items == null)
+                    Items = new ObservableRangeCollection<IUpcomingMovie>();
 
-            //do backup of data
-            _itemsBackup = new ObservableRangeCollection<IUpcomingMovie>(Items);
+                //show indicator
+                ShowIndicator();
+
+                //load the genres
+                await LoadGenres();
+
+                //do backup of data
+                _itemsBackup = new ObservableRangeCollection<IUpcomingMovie>(Items);
+            }
         }
 
         /// <summary>

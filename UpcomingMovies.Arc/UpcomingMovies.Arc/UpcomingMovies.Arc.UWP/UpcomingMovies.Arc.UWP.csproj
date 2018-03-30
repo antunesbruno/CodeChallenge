@@ -95,15 +95,15 @@
     <Content Include="Assets\ic_face_black_48dp.png" />
     <Content Include="Assets\ic_local_movies_black_48dp.png" />
     <Content Include="Assets\ic_search.png" />
-    <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\nopicturetoshow.jpg" />
-    <Content Include="Assets\splashScreen.png" />
+    <Content Include="Assets\splashScreen.scale-100.png" />
+    <Content Include="Assets\splashScreen.scale-125.png" />
+    <Content Include="Assets\splashScreen.scale-150.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\splashScreen.scale-400.png" />
+    <Content Include="Assets\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Square150x150Logo.scale-150.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>

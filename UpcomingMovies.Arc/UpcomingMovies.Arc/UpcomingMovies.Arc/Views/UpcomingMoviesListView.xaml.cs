@@ -10,6 +10,12 @@ namespace UpcomingMovies.Arc.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UpcomingMoviesListView : ContentPage, IUpcomingMoviesListView
     {
+        #region Fields
+                
+        private bool _hasInitialized = false;
+
+        #endregion
+
         #region Constructor        
 
         public UpcomingMoviesListView()
@@ -28,7 +34,12 @@ namespace UpcomingMovies.Arc.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await (this.BindingContext as IUpcomingMoviesListViewModel).LoadListItems();
+
+            if (!_hasInitialized)
+            {
+                _hasInitialized = true;
+                await (this.BindingContext as IUpcomingMoviesListViewModel).LoadListItems();
+            }
         }
 
         /// <summary>
