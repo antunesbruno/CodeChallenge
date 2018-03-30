@@ -10,9 +10,22 @@ namespace UpcomingMovies.Arc.ApiClient
 {
     public class ApiClientHttp : IApiClientHttp
     {
+        #region Fields        
+
         private HttpClient _restClient;
         private string _apiUrlBase = EndPointEnum.BaseAddress;
 
+        #endregion
+
+        #region API Http Methods        
+
+        /// <summary>
+        /// Get Data Async
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="apiRoute"></param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
         public async Task<BaseApiResult<TModel>> GetAsync<TModel>(string apiRoute, Action<BaseApiResult<TModel>> callback = null)
         {
             try
@@ -31,6 +44,13 @@ namespace UpcomingMovies.Arc.ApiClient
             }
         }
 
+        /// <summary>
+        /// Get Data Async without use the class BaseApiResult
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="apiRoute"></param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
         public async Task<BaseApiResult<TModel>> GetAsyncWithoutBaseApi<TModel>(string apiRoute, Action<BaseApiResult<TModel>> callback = null)
         {
             try
@@ -49,6 +69,10 @@ namespace UpcomingMovies.Arc.ApiClient
             }
         }
 
+        #endregion
+
+        #region Private Methods
+
         private async Task<string> GetAsync(string apiRoute)
         {
             var url = _apiUrlBase + apiRoute;              
@@ -56,20 +80,21 @@ namespace UpcomingMovies.Arc.ApiClient
             _restClient = _restClient ?? new HttpClient();
             _restClient.BaseAddress = new Uri(url);
 
-            ClearReponseHeaders();
-            AddReponseHeaders();
-
             var response = await _restClient.GetAsync(_restClient.BaseAddress);
             response.EnsureSuccessStatusCode();
             var data = response.Content.ReadAsStringAsync().Result;
 
             return data;
         }
-
+      
         private IsoDateTimeConverter GetConverter()
         {
             return new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" };
         }
+
+        #endregion
+
+        #region Aux Methods        
 
         public IApiClientHttp UseSufix(string urlSufix)
         {
@@ -80,21 +105,13 @@ namespace UpcomingMovies.Arc.ApiClient
 
             return this;
         }
-
-        private void AddReponseHeaders()
-        {
-
-        }
-
+        
         private void ClearReponseHeaders()
         {
             _restClient.DefaultRequestHeaders.Clear();
         }
 
-        public void Dispose()
-        {
-
-        }
+        #endregion
 
     }
 }

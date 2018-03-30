@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UpcomingMovies.Arc.ApiClient
+﻿namespace UpcomingMovies.Arc.ApiClient
 {
     public sealed class OkApiResult<T> : BaseApiResult<T>
     {

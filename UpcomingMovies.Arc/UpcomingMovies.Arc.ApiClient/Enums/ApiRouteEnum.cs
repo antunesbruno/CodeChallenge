@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UpcomingMovies.Arc.ApiClient.Enums
+﻿namespace UpcomingMovies.Arc.ApiClient.Enums
 {
     public static class ApiRouteEnum
     {
@@ -21,7 +15,7 @@ namespace UpcomingMovies.Arc.ApiClient.Enums
         /// <summary>
         /// Search Movies - Parameters ({0} - Key / {1} - language / {2} - query)
         /// </summary>
-        public const string SearchMovie = "/search/movie?api_key={0}&language={1}&query={2}";       
+        public const string SearchMovie = "search/movie?api_key={0}&language={1}&query={2}";       
         
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using UpcomingMovies.Arc.ApiClient.Enums;
 using UpcomingMovies.Arc.Ioc;
@@ -9,12 +7,25 @@ using UpcomingMovies.Arc.Models;
 
 namespace UpcomingMovies.Arc.ApiClient.Services
 {
+    /// <summary>
+    /// Get Genre of The Movie DB API
+    /// </summary>
     public class GenreService : IGenreService
     {
+        #region Fields        
+
         //Genre Address
         private string _address = string.Format(ApiRouteEnum.GenreMovie, EndPointEnum.APIKey, "en-us");
 
+        #endregion
+
+        #region Properties        
+
         public List<Genres> GenreCached { get; set; }
+
+        #endregion
+
+        #region Service Methods        
 
         /// <summary>
         /// Get All Genres in API
@@ -35,6 +46,6 @@ namespace UpcomingMovies.Arc.ApiClient.Services
             return GenreCached;
         }
 
-
+        #endregion
     }
 }

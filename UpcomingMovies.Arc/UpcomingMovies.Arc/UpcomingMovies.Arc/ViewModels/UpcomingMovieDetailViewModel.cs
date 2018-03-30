@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UpcomingMovies.Arc.Models.Helpers;
-using UpcomingMovies.Arc.Models.Interfaces;
+﻿using UpcomingMovies.Arc.Models.Interfaces;
 using UpcomingMovies.Arc.ViewModels.Interfaces;
 
 namespace UpcomingMovies.Arc.ViewModels
 {
-    public class UpcomingMovieDetailViewModel : BaseViewModel, IUpcomingMovieDetailViewModel
+    public class UpcomingMovieDetailViewModel : BaseViewModel<IUpcomingMovie>, IUpcomingMovieDetailViewModel
     {
+        #region Constructor        
+
         public UpcomingMovieDetailViewModel()
         {
             TitleView = "Movie Detail";
         }
+
+        #endregion
+
+        #region Properties        
 
         private IUpcomingMovie _selectedItem;
         public IUpcomingMovie SelectedItem
@@ -25,5 +25,7 @@ namespace UpcomingMovies.Arc.ViewModels
                 SetProperty(ref _selectedItem, value);
             }
         }
+
+        #endregion
     }
 }

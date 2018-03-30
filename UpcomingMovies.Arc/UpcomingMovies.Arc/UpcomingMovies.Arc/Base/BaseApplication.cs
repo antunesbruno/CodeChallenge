@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UpcomingMovies.Arc.Ioc;
 using Xamarin.Forms;
 
@@ -10,7 +6,13 @@ namespace UpcomingMovies.Arc.Base
 {
     public abstract class BaseApplication : Application
     {
+        #region Properties       
+
         public static BaseApplication Instance { get; private set; }
+
+        #endregion
+
+        #region Constructor        
 
         public BaseApplication()
         {
@@ -19,10 +21,21 @@ namespace UpcomingMovies.Arc.Base
             InitializeApplication();
         }
 
+        #endregion
+
+        #region Abstract Methods        
+
         public abstract void InitializeApplication();
 
         protected abstract List<IDependencyObject> CreateDependencies();
 
+        #endregion
+
+        #region Methods        
+
+        /// <summary>
+        /// Initialize IOC container
+        /// </summary>
         public void InitializeContainer()
         {
             var dependencies = CreateDependencies();
@@ -49,5 +62,7 @@ namespace UpcomingMovies.Arc.Base
         {
 
         }
+
+        #endregion
     }
 }

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UpcomingMovies.Arc.ApiClient.Services;
 using UpcomingMovies.Arc.Ioc;
 using UpcomingMovies.Arc.Models;
 using UpcomingMovies.Arc.Models.Helpers;
 using UpcomingMovies.Arc.Models.Interfaces;
 using UpcomingMovies.Arc.ViewModels.Interfaces;
-using System.Linq;
-using System.Collections.Generic;
 using UpcomingMovies.Arc.Views.Interfaces;
 
 namespace UpcomingMovies.Arc.ViewModels
@@ -17,11 +14,12 @@ namespace UpcomingMovies.Arc.ViewModels
         #region Fields        
 
         private int _pageItem = 1;        
-        private ObservableRangeCollection<UpcomingMovie> _itemsBackup;
+        private ObservableRangeCollection<IUpcomingMovie> _itemsBackup;
 
         #endregion
 
         #region Properties
+
         private ObservableRangeCollection<IUpcomingMovie> _items;
         public override ObservableRangeCollection<IUpcomingMovie> Items
         {
@@ -29,6 +27,22 @@ namespace UpcomingMovies.Arc.ViewModels
             set
             {
                 SetProperty(ref _items, value);
+            }
+        }
+
+        private string _searchText;
+        public override string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                //if cleaning value
+                if (!string.IsNullOrEmpty(_searchText) && string.IsNullOrEmpty(value))
+                {
+                    Items = new ObservableRangeCollection<IUpcomingMovie>(_itemsBackup);
+                }
+                    
+                SetProperty(ref _searchText, value);
             }
         }
 
@@ -60,6 +74,9 @@ namespace UpcomingMovies.Arc.ViewModels
 
             //load the genres
             await LoadGenres();
+
+            //do backup of data
+            _itemsBackup = new ObservableRangeCollection<IUpcomingMovie>(Items);
         }
 
         /// <summary>
@@ -69,24 +86,25 @@ namespace UpcomingMovies.Arc.ViewModels
         /// <returns></returns>
         public async Task LoadLazyList(IUpcomingMovie item)
         {
-            if (Items.Count == 0)
-                return;
-
-            //hit bottom!
-            if (item == Items[Items.Count - 1])
+            if (string.IsNullOrEmpty(SearchText))
             {
-                //show indicator
-                ShowIndicator();
+                if (Items.Count == 0)
+                    return;
 
-                //increment the page
-                _pageItem++;
+                //hit bottom!
+                if (item == Items[Items.Count - 1])
+                {
+                    //show indicator
+                    ShowIndicator();
 
-                //load more items
-                GetPagedItems();
+                    //increment the page
+                    _pageItem++;
+
+                    //load more items
+                    GetPagedItems();
+                }
             }
-        }
-
-       
+        }      
 
         #endregion
 
@@ -118,11 +136,64 @@ namespace UpcomingMovies.Arc.ViewModels
             var apiResult = await Resolver.Get<IUpcomingMoviesService>().GetPagedUpcomingWithGenre(_pageItem);
             Items.AddRange(new ObservableRangeCollection<UpcomingMovie>(apiResult));
 
+            //do backup of data
+            _itemsBackup = new ObservableRangeCollection<IUpcomingMovie>(Items);
+
             //hide indicator
             HideIndicator();
-        }       
+        }
 
         #endregion
+
+        #region Search Methods
+
+        /// <summary>
+        /// Execute the search of term
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
+        public override async Task ExecuteSearchCommand()
+        {
+            //validate size of term
+            if (SearchText?.Length >= 3)
+            {
+                //show loading
+                ShowIndicator();
+
+                //search by term
+                await SearchMoviesByTerm(SearchText);
+            }
+            else
+            {
+                //show alert
+                await ((Xamarin.Forms.Page)Resolver.Get<IUpcomingMoviesListView>()).DisplayAlert("Alert !", "You must digit at least 3 (three) caracters to search !", "OK");
+            }
+        }
+
+        /// <summary>
+        /// Search Movies By Term
+        /// This service show only the 20 terms and is need to digit at least 3 caracters
+        /// </summary>
+        /// <returns></returns>
+        private async Task SearchMoviesByTerm(string term)
+        {
+            //search
+            var result = await Resolver.Get<IUpcomingMoviesService>().SearchMoviesByTerm(term);
+
+            if (result?.Count > 0)
+            {
+                //clean items
+                Items.Clear();
+
+                //show list of itens search
+                Items = new ObservableRangeCollection<IUpcomingMovie>(result);
+            }
+
+            //hide indicator
+            HideIndicator();
+        }
+        
+        #endregion       
 
     }
 }

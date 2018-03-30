@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UpcomingMovies.Arc.ApiClient.Enums
+﻿namespace UpcomingMovies.Arc.ApiClient.Enums
 {
     public static class EndPointEnum
     {

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UpcomingMovies.Arc.ApiClient;
-using UpcomingMovies.Arc.ApiClient.Enums;
 using UpcomingMovies.Arc.ApiClient.Services;
 using UpcomingMovies.Arc.Base;
 using UpcomingMovies.Arc.Ioc;
@@ -26,17 +21,30 @@ namespace UpcomingMovies.Arc
 
         #endregion
 
+        #region Constructor
+                
         public App() 
             : base()
         {         
         }
 
+        #endregion
+
+        #region Methods        
+
+        /// <summary>
+        /// Initialize application
+        /// </summary>
         public override void InitializeApplication()
         {
             //TODO: create a splash screen
             MainPage = new NavigationPage((Page)Resolver.Get<IUpcomingMoviesListView>());
         }
 
+        /// <summary>
+        /// Register all dependencies of app
+        /// </summary>
+        /// <returns></returns>
         protected override List<IDependencyObject> CreateDependencies()
         {
             //http client service
@@ -48,8 +56,7 @@ namespace UpcomingMovies.Arc
 
             //views
             Inject<IUpcomingMoviesListView, UpcomingMoviesListView>(LifetimeType.Transient);
-            Inject<IUpcomingMovieDetailView, UpcomingMovieDetailView>(LifetimeType.Transient);
-            
+            Inject<IUpcomingMovieDetailView, UpcomingMovieDetailView>(LifetimeType.Transient);           
 
             //model
             Inject<IUpcomingMovie, UpcomingMovie>(LifetimeType.Transient);
@@ -60,8 +67,9 @@ namespace UpcomingMovies.Arc
             Inject<IGenreService, GenreService>(LifetimeType.ContainerController);
 
             return dependencies;
-        }  
-  
+        }
+
+        #endregion
 
         #region Private Injection Methods
 
@@ -92,6 +100,5 @@ namespace UpcomingMovies.Arc
         }
 
         #endregion
-
     }
 }

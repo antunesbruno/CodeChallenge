@@ -94,6 +94,7 @@
     <Content Include="Assets\ic_date_range_black_48dp.png" />
     <Content Include="Assets\ic_face_black_48dp.png" />
     <Content Include="Assets\ic_local_movies_black_48dp.png" />
+    <Content Include="Assets\ic_search.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\nopicturetoshow.jpg" />
     <Content Include="Assets\splashScreen.png" />

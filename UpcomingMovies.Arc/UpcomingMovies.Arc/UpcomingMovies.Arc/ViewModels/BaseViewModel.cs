@@ -1,20 +1,49 @@
 ﻿using System.Threading.Tasks;
-using UpcomingMovies.Arc.ApiClient.Services;
-using UpcomingMovies.Arc.Ioc;
-using UpcomingMovies.Arc.Models;
 using UpcomingMovies.Arc.Models.Helpers;
 using UpcomingMovies.Arc.Models.Interfaces;
-using UpcomingMovies.Arc.Services;
-using UpcomingMovies.Arc.Views.Interfaces;
 using Xamarin.Forms;
 
 namespace UpcomingMovies.Arc.ViewModels
 {
     public class BaseViewModel<T> : ObservableObject 
         where T : IModel
-    {        
+    {
+        #region Properties        
+
+        /// <summary>
+        /// Back button title
+        /// </summary>
         public virtual string BackButtonTitle { get; set; } = "Back";
 
+        /// <summary>
+        /// Search bar visibilty
+        /// </summary>
+        private bool _isVisibleSearchBar;
+        public virtual bool IsVisibleSearchBar
+        {
+            get { return _isVisibleSearchBar; }
+            set
+            {
+                SetProperty(ref _isVisibleSearchBar, value);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private string _searchText;
+        public virtual string SearchText 
+        {
+            get { return _searchText; }
+            set
+            {
+                SetProperty(ref _searchText, value);
+            }
+        }        
+
+        /// <summary>
+        /// Default List Items
+        /// </summary>
         private ObservableRangeCollection<T> _items;
         public virtual ObservableRangeCollection<T> Items
         {
@@ -25,111 +54,83 @@ namespace UpcomingMovies.Arc.ViewModels
             }
         }
 
+        /// <summary>
+        /// Loading visibility of list
+        /// </summary>
         bool isLoading = false;
         public bool IsLoading
         {
             get { return isLoading; }
             set { SetProperty(ref isLoading, value); }
         }
+
         /// <summary>
-        /// Private backing field to hold the title
+        /// Title view
         /// </summary>
         string titleView = string.Empty;
-        /// <summary>
-        /// Public property to set and get the title of the item
-        /// </summary>
         public string TitleView
         {
             get { return titleView; }
             set { SetProperty(ref titleView, value); }
         }
 
-        public void ShowIndicator()
+        #endregion
+
+        #region Methods        
+
+        /// <summary>
+        /// Show indicator
+        /// </summary>
+        public virtual void ShowIndicator()
         {
             IsLoading = true;
         }
 
-        public void HideIndicator()
+        /// <summary>
+        /// Hide indicator
+        /// </summary>
+        public virtual void HideIndicator()
         {
             IsLoading = false;
         }
 
-        #region Search Methods
+        #endregion
+
+        #region Commands
 
         /// <summary>
-        /// Execute the search of term
+        /// Search Command
         /// </summary>
-        /// <param name="term"></param>
-        /// <returns></returns>
-        public async Task SearchMovieByFilter(string term)
+        private Command _SearchCommand;
+        public Command SearchCommand
         {
-            //first search local in items
-            var _itemsFiltered = new ObservableRangeCollection<UpcomingMovie>(FilterListItem(term));
-
-            //if searched the items
-            if (_itemsFiltered != null)
-                Items = _itemsFiltered;
-            else
-            {
-                //search online
-                if (term.Length >= 3)
-                {
-                    //show loading
-                    ShowIndicator();
-
-                    await SearchMoviesByTerm(term);
-                }
-                else
-                {
-                    //show alert
-                    await ((Xamarin.Forms.Page)Resolver.Get<IUpcomingMoviesListView>()).DisplayAlert("Alert !", "You must digit at least 3 (three) caracters to search !", "OK");
-                }
-            }
+            get { return _SearchCommand ?? (_SearchCommand = new Command(async () => await ExecuteSearchCommand())); }
         }
 
         /// <summary>
-        /// Search Movies By Term
-        /// This service show only the 20 terms and is need to digit at least 3 caracters
+        /// Execute Action search
         /// </summary>
         /// <returns></returns>
-        private async Task SearchMoviesByTerm(string term)
+        public virtual async Task ExecuteSearchCommand() { }
+
+        /// <summary>
+        /// Show search bar command
+        /// </summary>
+        private Command _ShowSearchCommand;
+        public Command ShowSearchCommand
         {
-            //search
-            var result = await Resolver.Get<IUpcomingMoviesService>().SearchMoviesByTerm(term);
-
-            if (result != null)
-            {
-                //refresh backup
-                _itemsBackup = Items;
-
-                //clean items
-                Items.Clear();
-
-                //show list of itens search
-                Items = new ObservableRangeCollection<UpcomingMovie>(result);
-            }
-
-            //hide indicator
-            HideIndicator();
+            get { return _ShowSearchCommand ?? (_ShowSearchCommand = new Command(async () => await ExecuteShowSearchCommand())); }
         }
 
         /// <summary>
-        /// Filtra os itens conforme os campos espeficicados abaixo
+        /// Execute action to show search command bar
         /// </summary>
-        /// <param name="list"></param>
         /// <returns></returns>
-        private List<UpcomingMovie> FilterListItem(string term)
+        public virtual async Task ExecuteShowSearchCommand()
         {
-            var filteredList = Items.Where(z =>
-                   //title
-                   z.Title.ToLower().Contains(term.ToLower()) ||
-
-                   //original title
-                   z.Original_Title.ToLower().Contains(term.ToLower()));
-
-            return filteredList.ToList();
+            SearchText = string.Empty;
+            IsVisibleSearchBar = !IsVisibleSearchBar;
         }
-
 
         #endregion
     }

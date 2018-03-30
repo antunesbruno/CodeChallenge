@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using UpcomingMovies.Arc.Ioc;
+﻿using UpcomingMovies.Arc.Ioc;
 using UpcomingMovies.Arc.Models.Interfaces;
 using UpcomingMovies.Arc.ViewModels.Interfaces;
 using UpcomingMovies.Arc.Views.Interfaces;
@@ -15,18 +10,32 @@ namespace UpcomingMovies.Arc.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UpcomingMoviesListView : ContentPage, IUpcomingMoviesListView
     {
+        #region Constructor        
+
         public UpcomingMoviesListView()
         {
             InitializeComponent();
             this.BindingContext = Resolver.Get<IUpcomingMoviesListViewModel>();
-        }       
+        }
 
+        #endregion
+
+        #region Events        
+
+        /// <summary>
+        /// Execute actions when view appearing
+        /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();
             await (this.BindingContext as IUpcomingMoviesListViewModel).LoadListItems();
         }
 
+        /// <summary>
+        /// Execute when tap on item of list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             //if null return to list
@@ -51,17 +60,9 @@ namespace UpcomingMovies.Arc.Views
         /// <param name="e"></param>
         private async void ListView_ItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
-            await (this.BindingContext as IUpcomingMoviesListViewModel).LoadLazyList((IUpcomingMovie)e.Item);         
+            await (this.BindingContext as IUpcomingMoviesListViewModel).LoadLazyList((IUpcomingMovie)e.Item);
         }
 
-        /// <summary>
-        /// Execute the search of movies by name
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void SearchBarMovie_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            await (this.BindingContext as IUpcomingMoviesListViewModel).SearchMovieByFilter(e.NewTextValue);
-        }
+        #endregion
     }
 }

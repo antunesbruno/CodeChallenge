@@ -6,11 +6,14 @@
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              Title="{Binding TitleView}">
     <ContentPage.ToolbarItems>        
-        <ToolbarItem x:Name="settingsToolbarItem" Icon="icon.png" Text="Settings" Command="{Binding ShowSettingsCommand}" />        
+        <ToolbarItem x:Name="searchToolbarItem" Icon="ic_search.png" Text="Search" Command="{Binding ShowSearchCommand}" />
+        <ToolbarItem x:Name="iconApp" Icon="icon.png" Text="ArcTouch" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar x:Name="SearchBarMovie" TextChanged="SearchBarMovie_TextChanged" />            
+
+            <SearchBar x:Name="SearchBarMovie" SearchCommand="{Binding SearchCommand}" Text="{Binding SearchText}" IsVisible="{Binding IsVisibleSearchBar}" />    
+            
             <ListView ItemsSource="{Binding Items}" CachingStrategy="RetainElement" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HasUnevenRows="true" IsPullToRefreshEnabled="false" 
                       ItemTapped="ListView_ItemTapped" 
                       ItemAppearing="ListView_ItemAppearing"

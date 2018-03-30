@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UpcomingMovies.Arc.Ioc;
+﻿using UpcomingMovies.Arc.Ioc;
 using UpcomingMovies.Arc.Models.Interfaces;
 using UpcomingMovies.Arc.ViewModels.Interfaces;
 using UpcomingMovies.Arc.Views.Interfaces;
@@ -15,7 +10,16 @@ namespace UpcomingMovies.Arc.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UpcomingMovieDetailView : ContentPage, IUpcomingMovieDetailView
     {
+        #region Properties        
+
+        /// <summary>
+        /// Item selected in list
+        /// </summary>
         public IUpcomingMovie SelectedItem { get; set; }
+
+        #endregion
+
+        #region Constructor        
 
         public UpcomingMovieDetailView()
         {
@@ -25,6 +29,13 @@ namespace UpcomingMovies.Arc.Views
             this.BindingContext = Resolver.Get<IUpcomingMovieDetailViewModel>();           
         }
 
+        #endregion
+
+        #region Events        
+
+        /// <summary>
+        /// Execute when view appearing
+        /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -33,5 +44,7 @@ namespace UpcomingMovies.Arc.Views
             (this.BindingContext as IUpcomingMovieDetailViewModel).SelectedItem = this.SelectedItem;
 
         }
+
+        #endregion
     }
 }
