@@ -4,7 +4,7 @@
     "Xamarin.FFImageLoading": "2.3.5",
     "Xamarin.FFImageLoading.Forms": "2.3.5",
     "Xamarin.FFImageLoading.Transformations": "2.3.5",
-    "Xamarin.Forms": "2.3.4.224"
+    "Xamarin.Forms": "2.4.0.280"
   },
   "frameworks": {
     "uap10.0": {}
